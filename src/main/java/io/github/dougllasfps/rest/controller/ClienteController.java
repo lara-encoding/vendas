@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
@@ -44,7 +44,7 @@ public class ClienteController {
     public void delete( @PathVariable Integer id){
         clientes.findById(id)
                 .map( cliente -> {
-                    clientes.delete(cliente);
+                    clientes.delete(cliente );
                     return cliente;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -52,6 +52,7 @@ public class ClienteController {
     }
 
     @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id, @RequestBody Cliente cliente ){
         clientes
                 .findById(id)
@@ -69,7 +70,7 @@ public class ClienteController {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
         return clientes.findAll(example);
