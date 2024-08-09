@@ -52,16 +52,15 @@ public class ProdutoController {
                     repository.delete(p);
                     return Void.TYPE;
                 }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Cliente não encontrado") );
+                        "Produto não encontrado") );
     }
 
     @GetMapping("{id}")
-    @ResponseStatus(NO_CONTENT)
     public Produto getById( @PathVariable Integer id){
         return repository
                 .findById(id)
                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Cliente não encontrado") );
+                        "Produto não encontrado") );
     }
 
     @GetMapping
