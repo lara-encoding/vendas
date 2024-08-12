@@ -2,7 +2,9 @@ package io.github.dougllasfps.rest.controller;
 
 import io.github.dougllasfps.domain.entity.ItemPedido;
 import io.github.dougllasfps.domain.entity.Pedido;
+import io.github.dougllasfps.domain.entity.enums.StatusPedido;
 import io.github.dougllasfps.domain.repository.Pedidos;
+import io.github.dougllasfps.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.dougllasfps.rest.dto.InformacoesItemPedidoDTO;
 import io.github.dougllasfps.rest.dto.InformacoesPedidoDTO;
 import io.github.dougllasfps.rest.dto.PedidoDTO;
@@ -38,12 +40,21 @@ public class PedidoController {
     }
 
     @GetMapping("{id}")
-    public InformacoesPedidoDTO getById(@PathVariable Integer id){
+    public InformacoesPedidoDTO getById( @PathVariable Integer id ){
         return service
                 .obterPedidoCompleto(id)
                 .map( p -> converter(p) )
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus( @PathVariable Integer id ,
+            @RequestBody AtualizacaoStatusPedidoDTO dto){
+        String novoStatus = dto.getNovoStatus();
+        service.atualizarStatus(id, StatusPedido.valueOf(novoStatus));
+
     }
 
     private InformacoesPedidoDTO converter(Pedido pedido){
