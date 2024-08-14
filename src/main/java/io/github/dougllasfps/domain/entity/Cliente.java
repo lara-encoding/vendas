@@ -1,9 +1,11 @@
 package io.github.dougllasfps.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -13,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "cliente")
+@Table( name = "cliente" )
 public class Cliente {
 
     @Id
@@ -21,11 +23,13 @@ public class Cliente {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome",  length = 100)
     @NotEmpty(message = "Campo nome é obrigatório.")
     private String nome;
 
     @Column(name = "cpf", length = 11)
+    @NotEmpty(message = "Campo CPF é obrigatório.")
+    @CPF(message = "Informe um CPF válido.")
     private String cpf;
 
     @JsonIgnore

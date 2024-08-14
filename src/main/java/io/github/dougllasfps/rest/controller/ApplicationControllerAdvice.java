@@ -5,6 +5,7 @@ import io.github.dougllasfps.exception.RegraNegocioException;
 import io.github.dougllasfps.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,6 +37,6 @@ public class ApplicationControllerAdvice {
                 .stream()
                 .map( erro -> erro.getDefaultMessage() )
                 .collect(Collectors.toList());
-        return new ApiErrors(errors.toString());
+        return new ApiErrors(errors);
     }
 }

@@ -6,9 +6,9 @@ import lombok.Getter;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class ApiErrors {
 
-    @Getter
     private List<String> errors;
 
     public ApiErrors(List<String> errors) {

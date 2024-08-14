@@ -29,9 +29,6 @@ public class ClienteController {
         return clientes
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
-
-
-
     }
 
     @PostMapping
@@ -42,7 +39,7 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete( @PathVariable Integer id){
+    public void delete( @PathVariable Integer id ){
         clientes.findById(id)
                 .map( cliente -> {
                     clientes.delete(cliente );
@@ -54,7 +51,7 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update( @PathVariable Integer id, @RequestBody Cliente cliente ){
+    public void update( @PathVariable Integer id, @RequestBody @Valid Cliente cliente ){
         clientes
                 .findById(id)
                 .map( clienteExistente -> {
@@ -71,7 +68,8 @@ public class ClienteController {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING );
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
         return clientes.findAll(example);
