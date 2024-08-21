@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class UsuarioServiceImpl implements UserDetailsService {
 
@@ -37,7 +38,7 @@ public class UsuarioServiceImpl implements UserDetailsService {
                 .builder()
                 .username(usuario.getLogin())
                 .password(usuario.getSenha())
-                .roles()
+                .roles(roles)
                 .build();
     }
 }
